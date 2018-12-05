@@ -54,12 +54,19 @@ If you want to see if ZAP moved your message, you can use either the [Threat Pro
     
 ## To disable ZAP
   
-If you want to disable ZAP for your Office 365 tenant, or a set of users, use the **ZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
+If you want to disable phish and spam ZAP for your Office 365 tenant, or a set of users, use the **ZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
     
 In the following example, ZAP is disabled for a content filter policy named "Test".
     
 ```
   Set-HostedContentFilterPolicy -Identity Test -ZapEnabled $false
+```
+If you want to disable malware ZAP for your Office 365 tenant, or a set of users, use the **ZapEnabled** parameter of [Set-MalwareFilterPolicy](https://docs.microsoft.com/en-us/powershell/module/exchange/antispam-antimalware/set-malwarefilterpolicy?view=exchange-ps).
+
+In the following example, ZAP is disabled for a malware filter policy named "Test".
+
+```
+  Set-MalwareFilterPolicy -Identity Test -ZapEnabled $false
 ```
 
 ## FAQ
