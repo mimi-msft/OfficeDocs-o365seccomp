@@ -49,14 +49,14 @@ Malware ZAP is enabled by default in the Malware Policy. Malware ZAP can be disa
 **Phish ZAP**
 For mail that is identified as phish after delivery, ZAP takes action according to the Spam policy that the user is covered by. If the policy Phish action is set to take action on a mail (Redirect, Delete, Quarantine, Move to Junk) then ZAP will move the message to the Junk mail folder of the user's inbox, regardless of the read status of the mail. If the policy Phish action is not set to take action (Add X-header, Modify subject, No action) then ZAP will not take action on the mail. Learn more about how to [configure your spam filter policies](https://docs.microsoft.com/en-us/office365/securitycompliance/configure-your-spam-filter-policies) here.
 
-Phish ZAP is enabled by default in the Spam Policy. Phish ZAP can be disabled using the **ZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
-Note: Disabling -ZapEnabled will disable both Phish ZAP and Spam ZAP
+Phish ZAP is enabled by default in the Spam Policy. Phish ZAP can be disabled using the **PhishZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
+Note: the previous **ZapEnabled** cmdlet parameter which controlled both Phish and Spam ZAP will soon be deprecated. If you have written any scripts which use the ZapEnabled parameter, we recommend updating them to use SpamZapEnabled and PhishZapEnabled. In the transitional period all 3 parameters (ZapEnabled, PhishZapEnabled, and SpamZapEnabled) will be available through the cmdlet. Until explicitly set via UI or PowerShell, PhishZapEnabled and SpamZapEnabled will show an inherited value from the ZapEnabled parameter. Once the new parameters are set, they will no longer inherit from the ZapEnabled parameter. After it is deprecated, setting ZapEnabled will have no affect on the PhishZapEnabled or SpamZapEnabled properties and ZapEnabled will be removed from the list of parameters in cmdlets.
 
 **Spam ZAP**
 For mail that is identified as spam after delivery, ZAP takes action according to the Spam policy that the user is covered by. If the policy Spam action is set to take action on a mail (Redirect, Delete, Quarantine, Move to Junk) then ZAP will move the message to the Junk mail folder of the user's inbox, if the message is unread. If the policy Spam action is not set to take action (Add X-header, Modify subject, No action) then ZAP will not take action on the mail. Learn more about how to [configure your spam filter policies](https://docs.microsoft.com/en-us/office365/securitycompliance/configure-your-spam-filter-policies) here.
 
-Spam ZAP is enabled by default in the Spam Policy. Spam ZAP can be disabled using the **ZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
-Note: Disabling -ZapEnabled will disable both Phish ZAP and Spam ZAP
+Spam ZAP is enabled by default in the Spam Policy. Spam ZAP can be disabled using the **SpamZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
+Note: the previous **ZapEnabled** cmdlet parameter which controlled both Phish and Spam ZAP will soon be deprecated. If you have written any scripts which use the ZapEnabled parameter, we recommend updating them to use SpamZapEnabled and PhishZapEnabled. In the transitional period all 3 parameters (ZapEnabled, PhishZapEnabled, and SpamZapEnabled) will be available through the cmdlet. Until explicitly set via UI or PowerShell, PhishZapEnabled and SpamZapEnabled will show an inherited value from the ZapEnabled parameter. Once the new parameters are set, they will no longer inherit from the ZapEnabled parameter. After it is deprecated, setting ZapEnabled will have no affect on the PhishZapEnabled or SpamZapEnabled properties and ZapEnabled will be removed from the list of parameters in cmdlets.
 
 ## To see if ZAP moved your message
 
@@ -72,12 +72,12 @@ In the following example, ZAP is disabled for a content filter policy named "Tes
   Set-HostedContentFilterPolicy -Identity Test -ZapEnabled $false
 ```
 **Disabling Phish and Spam ZAP**
-To disable both Phish and Spam ZAP for your O365 tenant, or a set of users, use the **ZapEnabled** parameter of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
+To disable Phish and Spam ZAP for your O365 tenant, or a set of users, use the **PhishZapEnabled** and **SpamZapEnabled** parameters of [Set-HostedContentFilterPolicy](https://go.microsoft.com/fwlink/p/?LinkId=722758), an EOP cmdlet.
 
-In the following example, ZAP is disabled for a content filter policy named "Test".
+In the following example, phish and spam ZAP are disabled for a content filter policy named "Test".
 
 ```Powershell
-  Set-HostedContentFilterPolicy -Identity Test -ZapEnabled $false
+  Set-HostedContentFilterPolicy -Identity Test -PhishZapEnabled $false -SpamZapEnabled $false
 ```
 
 ## FAQ
